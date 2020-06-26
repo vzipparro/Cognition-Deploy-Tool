@@ -6,6 +6,7 @@ root= tk.Tk()
 
 canvas1 = tk.Canvas(root, width = 500, height = 500, bg = 'gray90', relief = 'raised')
 canvas1.pack()
+
 repository  = path.dirname(r'/Users/vzipparro/Documents/Github Repos/Cognition/') 
 git_command = ['/usr/bin/git', 'pull']
 
@@ -35,5 +36,5 @@ canvas1.create_window(250, 175, window=button3)
 canvas1.create_window(250, 225, window=button4)
 canvas1.create_window(250, 275, window=output)
 
-
+root.title("Cognition Deploy Tool")
 root.mainloop()
