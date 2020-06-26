@@ -16,7 +16,7 @@ def gitpull ():
 
 def deployStatus():
     Popen(["time", "bundle", "exec", "cap", "test-new", "deploy:web:status"], cwd=repository)
-QA
+
 def deployCheck():
     Popen(["time", "bundle", "exec", "cap", "test-new", "deploy:check"], cwd=repository)
 
