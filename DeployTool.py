@@ -1,17 +1,38 @@
 from subprocess import Popen, PIPE, run
 from os import path
 import tkinter as tk
+import git
+import shutil
 
 root= tk.Tk()
 
-canvas1 = tk.Canvas(root, width = 500, height = 500, bg = 'gray90', relief = 'raised')
+canvas1 = tk.Canvas(root, width = 400, height = 400, bg = 'gray90', relief = 'raised')
 canvas1.pack()
 
-repository  = path.dirname(r'/Users/vzipparro/Documents/Github Repos/Cognition/') 
-git_command = ['/usr/bin/git', 'pull']
+user_repo_path = path.expanduser("~/Desktop")
+repository  = path.dirname(rf'{user_repo_path}/Cognition/') 
+git_pull_command = ['/usr/bin/git', 'pull']
 
-def gitpull ():
-    git_query = Popen(git_command, cwd=repository, stdout=PIPE, stderr=PIPE)
+def gitRetrieve():
+    if path.exists(repository):
+        git_pull_command = ['/usr/bin/git', 'pull']
+        git_query = Popen(git_pull_command, cwd=repository, stdout=PIPE, stderr=PIPE)
+        (git_status, error) = git_query.communicate()
+        print(git_status)  
+    else:
+        git.Git(user_repo_path).clone("https://github.com/cloudvox/Cognition.git")
+        git_pull_command = ['/usr/bin/git', 'pull']
+        git_query = Popen(git_pull_command, cwd=repository, stdout=PIPE, stderr=PIPE)
+        (git_status, error) = git_query.communicate()
+        print(git_status) 
+
+def removeRepoFromDesktop():
+    shutil.rmtree(repository)
+
+def gitPull():
+    gitClone()
+    git_pull_command = ['/usr/bin/git', 'pull']
+    git_query = Popen(git_pull_command, cwd=repository, stdout=PIPE, stderr=PIPE)
     (git_status, error) = git_query.communicate()
     print(git_status)  
 
@@ -24,17 +45,19 @@ def deployCheck():
 def deployToTest():
     Popen(["time", "bundle", "exec", "cap", "test-new", "deploy"], cwd=repository)
 
-button1 = tk.Button(text='Git Pull', command=gitpull)
+button1 = tk.Button(text='Git Pull', command=gitRetrieve)
 button2 = tk.Button(text='Deploy Status', command=deployStatus)
 button3 = tk.Button(text='Deploy Check', command=deployCheck)
 button4 = tk.Button(text='Deploy Code to Test', command=deployToTest)
-output  = tk.Entry(root)
+button5 =  tk.Button(text='Delete Repo From Desktop', command=removeRepoFromDesktop)
+# output  = tk.Entry(root)
 
-canvas1.create_window(250, 75, window=button1)
-canvas1.create_window(250, 125, window=button2)
-canvas1.create_window(250, 175, window=button3)
-canvas1.create_window(250, 225, window=button4)
-canvas1.create_window(250, 275, window=output)
+canvas1.create_window(200, 75, window=button1)
+canvas1.create_window(200, 125, window=button2)
+canvas1.create_window(200, 175, window=button3)
+canvas1.create_window(200, 225, window=button4)
+canvas1.create_window(200, 275, window=button5)
+# canvas1.create_window(250, 300, window=output)
 
 root.title("Cognition Deploy Tool")
 root.mainloop()
