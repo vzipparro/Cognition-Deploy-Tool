@@ -18,23 +18,17 @@ def gitRetrieve():
         git_pull_command = ['/usr/bin/git', 'pull']
         git_query = Popen(git_pull_command, cwd=repository, stdout=PIPE, stderr=PIPE)
         (git_status, error) = git_query.communicate()
-        print(git_status)  
+        print(f'The repo already exists on your desktop and the status is: {git_status}')  
     else:
         git.Git(user_repo_path).clone("https://github.com/cloudvox/Cognition.git")
         git_pull_command = ['/usr/bin/git', 'pull']
         git_query = Popen(git_pull_command, cwd=repository, stdout=PIPE, stderr=PIPE)
         (git_status, error) = git_query.communicate()
-        print(git_status) 
+        print(f'The repo has been cloned to your desktop and the statis is: {git_status}') 
 
 def removeRepoFromDesktop():
     shutil.rmtree(repository)
-
-def gitPull():
-    gitClone()
-    git_pull_command = ['/usr/bin/git', 'pull']
-    git_query = Popen(git_pull_command, cwd=repository, stdout=PIPE, stderr=PIPE)
-    (git_status, error) = git_query.communicate()
-    print(git_status)  
+    print(f'{repository} has been deleted from your desktop')
 
 def deployStatus():
     Popen(["time", "bundle", "exec", "cap", "test-new", "deploy:web:status"], cwd=repository)
