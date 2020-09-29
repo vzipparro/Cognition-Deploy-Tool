@@ -24,7 +24,7 @@ def gitRetrieve():
         git_pull_command = ['/usr/bin/git', 'pull']
         git_query = Popen(git_pull_command, cwd=repository, stdout=PIPE, stderr=PIPE)
         (git_status, error) = git_query.communicate()
-        print(f'The repo has been cloned to your desktop and the statis is: {git_status}') 
+        print(f'The repo has been cloned to your desktop and with a status of: {git_status}') 
 
 def removeRepoFromDesktop():
     shutil.rmtree(repository)
