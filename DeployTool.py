@@ -31,13 +31,13 @@ def removeRepoFromDesktop():
     print(f'{repository} has been deleted from your desktop')
 
 def deployStatus():
-    Popen(["time", "bundle", "exec", "cap", "test-php74", "deploy:web:status"], cwd=repository)
+    Popen(["time", "bundle", "exec", "cap", "test-new", "deploy:web:status"], cwd=repository)
 
 def deployCheck():
-    Popen(["time", "bundle", "exec", "cap", "test-php74", "deploy:check"], cwd=repository)
+    Popen(["sudo time", "bundle", "exec", "cap", "test-new", "deploy:check"], cwd=repository)
 
 def deployToTest():
-    Popen(["time", "bundle", "exec", "cap", "test-php74", "deploy"], cwd=repository)
+    Popen(["time", "bundle", "exec", "cap", "test-new", "deploy"], cwd=repository)
 
 button1 = tk.Button(text='Git Pull', command=gitRetrieve)
 button2 = tk.Button(text='Deploy Status', command=deployStatus)
