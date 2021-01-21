@@ -34,7 +34,7 @@ def deployStatus():
     Popen(["time", "bundle", "exec", "cap", "test-new", "deploy:web:status"], cwd=repository)
 
 def deployCheck():
-    Popen(["sudo time", "bundle", "exec", "cap", "test-new", "deploy:check"], cwd=repository)
+    Popen(["time", "bundle", "exec", "cap", "test-new", "deploy:check"], cwd=repository)
 
 def deployToTest():
     Popen(["time", "bundle", "exec", "cap", "test-new", "deploy"], cwd=repository)
